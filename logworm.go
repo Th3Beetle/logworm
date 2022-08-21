@@ -39,7 +39,6 @@ func StartLog(requests chan string, response chan string, window_slices chan []i
 
 		newRequest := <-requests
 		newResponse := <-response
-		counter += 1
 		var newParsedRequest Request
 		newParsedRequest.request = newRequest
 		newParsedRequest.response = newResponse
@@ -47,6 +46,7 @@ func StartLog(requests chan string, response chan string, window_slices chan []i
 		newParsedRequest.parse()
 		requestLog[counter] = newParsedRequest
 		window_slices <- newParsedRequest.getLogSlice()
+		counter += 1
 	}
 }
 
