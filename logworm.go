@@ -51,9 +51,11 @@ func StartLog(requests chan string, response chan string, window_slices chan []i
 }
 
 func listenForQuery(requestLog *map[int]Request, request_id chan string, window_requests chan string, window_responses chan string) {
-	stringId := <-request_id
-	id, _ := strconv.Atoi(stringId)
-	request := (*requestLog)[id]
-	window_requests <- request.request
-	window_responses <- request.response
+	for {
+		stringId := <-request_id
+		id, _ := strconv.Atoi(stringId)
+		request := (*requestLog)[id]
+		window_requests <- request.request
+		window_responses <- request.response
+	}
 }
